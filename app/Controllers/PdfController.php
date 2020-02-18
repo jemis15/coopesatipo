@@ -128,13 +128,22 @@ class   PdfController extends BaseController {
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();
-        die();
     }
 
     public function getPdfFundo(ServerRequest $request)
     {
+        $fundo = Fundo::find($request->getAttribute('idfundo'));
+        $productor = Productor::find($fundo->productor_id);
+        $items = Item::where('fundo_id','=',$fundo->fundo_id)->get();
 
-        echo "ola";
-        die();
+        $html = $this->getHTML('/pdf/fundo.twig',[
+            'productor' => $productor,
+            'fundo' => $fundo,
+            'items' => $items
+        ]);
+
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }
