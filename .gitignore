@@ -2,6 +2,7 @@
 ._.DS_Store
 .DS_Store
 vendor/
+public/uploads
 borrador/
 ._composer.phar
 composer.phar
