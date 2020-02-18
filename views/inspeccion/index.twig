@@ -1,0 +1,659 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<input type="hidden" value="inspeccion" id="db_tabla">
+<input type="hidden" value="{{inspeccion.inspeccion_id}}" id="inspeccion_id">
+
+<div class="container">
+    <h4 class="text-center my-5">
+        PRODUCTOR,<br>
+        <b>{{productor.nom_ape}}</b>
+    </h4>
+</div>
+
+<nav>
+    <div class="container">
+        <a class="btn btn-link" href="/productores/{{productor.productor_id}}">
+            Perfil
+        </a>
+        {% if fundo %}
+        <a class="btn btn-link" href="/fundo/{{fundo.fundo_id}}">Fundo</a>
+        {% else %}
+        <button class="btn btn-link" data-toggle="modal" data-target="#agregarFundo">Fundo</button>
+        {% endif %}
+
+        <a class="btn btn-link" href="/productor/{{productor.productor_id}}/inspecciones">
+            <b>Inspecciones</b>
+        </a>
+    </div>
+</nav>
+
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <form action="/inspecciones/{{inspeccion.inspeccion_id}}/update" method="post">
+            <div class="title d-flex justify-content-between border-bottom">
+                <h5>DATOS GENERALES</h5>
+                <button type="submit" class="btn btn-link">
+                    <i class="far fa-edit"></i>
+                </button>
+            </div>
+            <div class="body mt-3">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">CODIGO DE CERTIFICADO</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="codigo" class="form-control form-control-sm bg-light"
+                            value="{{inspeccion.codigo}}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">ESTATUS ECOLOGICO</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="estatus" class="form-control form-control-sm bg-light"
+                            value="{{inspeccion.estatus}}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">TIPO DE INSPECCION</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="tipo" class="form-control form-control-sm bg-light"
+                            value="{{inspeccion.tipo}}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">FECHA</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="date" name="fecha" class="form-control" value="{{inspeccion.fecha}}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title border-bottom">
+            <h5>NORMAS Y CRITERIOS A CUMPLIR</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row">
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_1' %}
+                    <input type="checkbox" value="norma_1" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_1" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Reglamento Europeo (CEE) 834/2007 y 889/2008 EU Regulations (EC) NO 834/07 AND 889/08.
+                        (EU)</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_2' %}
+                    <input type="checkbox" value="norma_2" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_2" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Reglamento tecnico Peruano DS # 044/2006 AG</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_3' %}
+                    <input type="checkbox" value="norma_3" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_3" name="normas" id="">
+                    {% endfor %}
+                    <label for="">USDA, AMS 7 CFR Parte 205, National Organic Program, USDA, AMS 7 CFR 205,
+                        (NOP)</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_4' %}
+                    <input type="checkbox" value="norma_4" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_4" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Estandar Japones de Agricultura (JAS)</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_5' %}
+                    <input type="checkbox" value="norma_5" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_5" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Criterio de Comercio Justo FLO CERT</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_6' %}
+                    <input type="checkbox" value="norma_6" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_6" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Rain Forest Aliance</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_7' %}
+                    <input type="checkbox" value="norma_7" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_7" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Reglamento Interno (SIC)</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_8' %}
+                    <input type="checkbox" value="norma_8" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_8" name="normas" id="">
+                    {% endfor %}
+                    <label for="">C.A.F.E. Practices</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_9' %}
+                    <input type="checkbox" value="norma_9" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_9" name="normas" id="">
+                    {% endfor %}
+                    <label for="">Codigo comun de conducta par ala comuidad cafetalera (4C)</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_10' %}
+                    <input type="checkbox" value="norma_10" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_10" name="normas" id="">
+                    {% endfor %}
+                    <label for="">IMO CERT</label>
+                </div>
+                <div class="col-12">
+                    {% for valor in valores if valor.valor_1 == 'norma_11' %}
+                    <input type="checkbox" value="norma_11" name="normas" id="{{valor.valor_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="norma_11" name="normas" id="">
+                    {% endfor %}
+                    <label for="">UTZ</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title border-bottom">
+            <h5>DATOS DE LAS PARCELAS</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row">
+                <div class="col-3">
+                    <label for="">SUPERFICIE (ha.)</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'a_t_fundo' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Area total del fundo (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="a_t_fundo">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Area total del fundo (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'a_t_cafe' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Area total del cafe (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="a_t_cafe">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Area total del cafe (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'cafe_en_produccion' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Cafe en produccion (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="cafe_en_produccion">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Cafe en produccion (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'cafe_en_crecimiento' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Cafe en crecimiento (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="cafe_en_crecimiento">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Cafe en crecimiento (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'otros_cultivos' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>tros cultivos (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="otros_cultivos">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>tros cultivos (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'bosque' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Bosque (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="bosque">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Bosque (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            {% for valor in valores if valor.clave == 'z_de_riesgo_de_erosion' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Zona de riesgo de Erosion (ha)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="z_de_riesgo_de_erosion">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Zona de riesgo de Erosion (ha)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">COCECHA 2019</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            {% for valor in valores if valor.clave == 'total_producion' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Total produccion (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="total_producion">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Total produccion (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6">
+                            {% for valor in valores if valor.clave == 'entrego_a_la_central_sinchiri' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Entrego a la Central SINCHIRI (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="entrego_a_la_central_sinchiri">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Entrego a la Central SINCHIRI (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">ESTIMADO 2019</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            {% for valor in valores if valor.clave == 'total_produccion_before' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Total produccion (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="total_produccion_before">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Total produccion (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6">
+                            {% for valor in valores if valor.clave == 'entrego_a_la_central_sinchiri_before' %}
+                            <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                                <input type="hidden" name="id" value="{{valor.valor_id}}">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                                    value="{{valor.valor_1}}">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Entrego a la Central SINCHIRI (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% else %}
+                            <form action="/valores/new" method="POST">
+                                <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                                <input type="hidden" name="clave" value="entrego_a_la_central_sinchiri_before">
+                                <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                                <button class="btn btn-link liz" type="submit">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <span>
+                                    <i>Entrego a la Central SINCHIRI (Saco/70Kg)</i>
+                                </span>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">OBSERVACION</label>
+                </div>
+                <div class="col">
+                    {% for valor in valores if valor.clave == 'observacion_datos_parcela' %}
+                    <form action="/valores/{{valor.valor_id}}/update" method="POST">
+                        <input type="hidden" name="id" value="{{valor.valor_id}}">
+                        <input type="text" name="valor" class="form-control form-control-sm bg-light"
+                            value="{{valor.valor_1}}">
+                        <button class="btn btn-link liz" type="submit">
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </form>
+                    {% else %}
+                    <form action="/valores/new" method="POST">
+                        <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                        <input type="hidden" name="clave" value="observacion_datos_parcela">
+                        <input type="text" name="valor" class="form-control form-control-sm bg-light">
+                        <button class="btn btn-link liz" type="submit">
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for encuesta in encuestas %}
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title border-bottom">
+            <h5>{{encuesta.titulo}}</h5>
+        </div>
+        <div class="body mt-3">
+            {% for item in encuesta.items %}
+            {% for valor in valores if valor.clave == item.numero %}
+            <form action="/valores/e/{{valor.valor_id}}/update" method="POST">
+                <div class="row">
+                    <div class="col-4">
+                        {{item.accion}}
+                    </div>
+                    <div class="col-1">
+                        {{item.criterio}}
+                    </div>
+                    <div class="col-1">
+                        <input type="text" name="no_aplica" class="form-control form-control-sm bg-light" value="{{valor.valor_1}}">
+                        <input type="hidden" name="id" value="{{valor.valor_id}}">
+                    </div>
+                    <div class="col-1">
+                        <input type="radio" name="si" {% if valor.valor_2 == 'true' %}checked{% endif %} value="true">
+                        <label for="">SI</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="radio" name="si" {% if valor.valor_2 == 'false' %}checked{% endif %} value="false">
+                        <label for="">NO</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="observacion" class="form-control form-control-sm bg-light" placeholder="Observaciones" value="{{valor.valor_3}}">
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-link" type="submit">
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <form action="/valores/e/new" method="POST">
+                <div class="row">
+                    <div class="col-4">
+                        {{item.accion}}
+                    </div>
+                    <div class="col-1">
+                        {{item.criterio}}
+                    </div>
+                    <div class="col-1">
+                        <input type="text" name="no_aplica" class="form-control form-control-sm bg-light">
+                        <input type="hidden" name="id" value="{{inspeccion.inspeccion_id}}">
+                        <input type="hidden" name="clave" value="{{item.numero}}">
+                    </div>
+                    <div class="col-1">
+                        <input type="radio" name="si" value="true">
+                        <label for="">SI</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="radio" name="si" value="false">
+                        <label for="">NO</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="observacion" class="form-control form-control-sm bg-light" placeholder="Observaciones">
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-link" type="submit">
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- modal agregar inspeccion -->
+<!-- Modal -->
+<div class="modal fade" id="agregarInspeccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Fundo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/inspecciones/new" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="productor" value="{{productor.productor_id}}">
+                        <label for="">Tipo de inspeccion</label>
+                        <input type="text" class="form-control" name="tipo">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Fecha</label>
+                        <input type="date" class="form-control" name="fecha" value="{{fecha}}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Crear Insepeccion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+    <p class="text-center">
+        <a href="/inspeccion/{{inspeccion.inspeccion_id}}/verpdf">Verlo en PDF</a>
+    </p>
+</div>
+{% endblock %}

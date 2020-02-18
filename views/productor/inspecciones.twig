@@ -1,0 +1,73 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container">
+    <h4 class="text-center my-5">
+        PRODUCTOR,<br>
+        <b>{{productor.nom_ape}}</b>
+    </h4>
+</div>
+
+<nav>
+    <div class="container">
+        <a class="btn btn-link" href="/productores/{{productor.productor_id}}">
+            Perfil
+        </a>
+        {% if fundo %}
+        <a class="btn btn-link" href="/fundo/{{fundo.fundo_id}}">Fundo</a>
+        {% else %}
+        <button class="btn btn-link" data-toggle="modal" data-target="#agregarFundo">Fundo</button>
+        {% endif %}
+
+        <a class="btn btn-link" href="/productor/{{productor.productor_id}}/inspecciones">
+            <b>Inspecciones</b>
+        </a>
+    </div>
+</nav>
+
+<div class="container py-4 bg-white mt-3 shadow">
+    {% for inspeccion in inspecciones %}
+    <a href="/inspecciones/{{inspeccion.inspeccion_id}}">{{inspeccion.tipo}} - {{inspeccion.fecha}}</a> .
+    <a href="/inspeccion/{{inspeccion.inspeccion_id}}/verpdf">Ver en PDF</a>
+    <br>
+    {% else %}
+    <span>Sin inspecciones</span><br>
+    {% endfor %}
+    <a href="#" class="btn btn-link text-success" data-toggle="modal" data-target="#agregarInspeccion">Agregar nueva inspeccion</a>
+</div>
+
+
+
+<!-- modal agregar inspeccion -->
+<!-- Modal -->
+<div class="modal fade" id="agregarInspeccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Fundo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/inspecciones/new" method="POST">
+                <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="productor" value="{{productor.productor_id}}">        
+                    <label for="">Tipo de inspeccion</label>
+                    <input type="text" class="form-control" name="tipo">
+                </div>
+                <div class="form-group">        
+                    <label for="">Fecha</label>
+                    <input type="date" class="form-control" name="fecha" value="{{fecha}}">
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Crear Insepeccion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

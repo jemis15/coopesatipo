@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>PDF inspeccion</title>
+
+    <link rel="stylesheet" href="./css/pdf.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+
+        <h4 class="text-center">CENTRAL DE PRODUCTORES AGROECOLOGICOS "SINCHIRI" PANGOA</h4>
+        <h5 class="text-center">FICHA DE INFORMACION BASICA DEL PRODUCTOR</h5>
+
+        <h6>1. DATOS DEL PRODUCTOR</h6>
+        <div>
+            <div>
+                Apellidos y Nombre
+            </div>
+            <div>
+                <b>{{productor.nom_ape}}</b>
+            </div>
+            <div>
+                DNI
+            </div>
+            <div>
+                <b>{{productor.dni}}</b>
+            </div>
+            <div>
+                Ubicacion
+            </div>
+            <div>
+                <b>{{productor.departamento}} - {{productor.provincia}} - {{productor.distrito}}</b>
+            </div>
+        </div>
+
+
+        <h6>2. FUNDO</h6>
+        <p>
+            Ubicacion del fundo: <b>{{fundo.ubicacion}}</b> <br>
+            Distancia desde Satipo (Km): <b>{{fundo.distancia}}</b> <br>
+            Altitud: <b>{{fundo.altitud}}</b> <br>
+            Precipitacion: <b>{{fundo.precipitacion}}</b> <br>
+            Temperatura: <b>{{fundo.temperatura}}</b> <br>
+            Norte: <b>{{fundo.norte}}</b> <br>
+            Este: <b>{{fundo.este}}</b> <br>
+        </p>
+
+        <h6>2.1 UNIDAD DE PRODUCCION</h6>
+        {% for produccion in items if produccion.clave == 'produccion' %}
+            <p>
+                - Cultivo: <b>{{produccion.valor_1}}</b> <br>
+                - Superficie Anterior: <b>{{produccion.valor_2}}</b> <br>
+                - Superficie Actual: <b>{{produccion.valor_3}}</b>
+            </p>
+        {% endfor %}
+
+        <h6>2.3 MANEJO PECUARIO</h6>
+        {% for manejo in items if produccion.clave == 'manejo_pecuario' %}
+            <p>
+                - <b>{{produccion.valor_1}} {{produccion.valor_2}} {{produccion.valor_3}}</b> <br>
+            </p>
+        {% endfor %}
+
+        <h6>2.4 MANEJO DE RESIDUOS</h6>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Pozas de residuos Organicos' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Posas de residuos Organicos</label>
+        </div>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Posas de residuos Inorganicos' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Posas de residuos Inorganicos</label>
+        </div>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Compostera' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Posas de residuos Compostera</label>
+        </div>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Tratamiento de Aguas miel' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Tratamiento de Aguas miel</label>
+        </div>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Tratamiento de Aguas Grises' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Tratamiento de Aguas grises</label>
+        </div>
+        <div class="col-4">
+            {% for item in items if item.valor_1 == 'Silo' %}
+            <span class="border"> X </span>
+            {% else %}
+            <input type="checkbox">
+            {% endfor %}
+            <label for="">Silo</label>
+        </div>
+    </div>
+
+    <h6>2.5 ALMACENAMIENTO</h6>
+    <div class="col-4">
+        {% for item in items if item.valor_1 == 'Almacen Exclusivo para el Cafe' %}
+        <span class="border"> X </span>
+        {% else %}
+        <input type="checkbox">
+        {% endfor %}
+        <label for="">Almacen Exclusivo para el Cafe</label>
+    </div>
+    <div class="col-4">
+        {% for item in items if item.valor_1 == 'Almacen para Insumos' %}
+        <span class="border"> X </span>
+        {% else %}
+        <input type="checkbox">
+        {% endfor %}
+        <label for="">Almacen para Insumos</label>
+    </div>
+    <div class="col-4">
+        {% for item in items if item.valor_1 == 'Almacen para herramienta, equipos, y otro productos' %}
+        <span class="border"> X </span>
+        {% else %}
+        <input type="checkbox">
+        {% endfor %}
+        <label for="">Almacen para herramienta, equipos, y otro productos</label>
+    </div>
+
+    <P>... En proceso de construccion</P>
+</body>
+
+</html>

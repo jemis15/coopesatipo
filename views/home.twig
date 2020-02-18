@@ -1,0 +1,85 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+
+{% if search %}
+<p class="text-center my-5">
+    Resultados de <b>{{search}}</b>
+</p>
+{% endif %}
+
+
+<div class="container bg-white mt-5 pt-3">
+    <h3 class="text-center">Productores</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Apellidos y nombre</th>
+                <th>DNI</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for productor in productores %}
+            <tr>
+                <td>
+                    <a href="/productores/{{productor.productor_id}}">{{productor.nom_ape}}</a>
+                </td>
+                <td>{{productor.dni}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="#" class="btn btn-link mb-3 text-success" data-toggle="modal" data-target="#agregarProductor">Agregar nuevo
+        productor</a>
+</div>
+
+<!-- MODAL AGREGAR NUEVO PRODUCTOR -->
+
+<!-- Modal -->
+<div class="modal fade" id="agregarProductor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Productor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/productores/new" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Apellidos y Nombres</label>
+                        <input type="text" class="form-control" name="nom_ape">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Documento</label>
+                        <input type="text" class="form-control" name="documento">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Departamento</label>
+                        <select id="inputState" class="form-control" name="departamento">
+                            <option value="JUNIN">Junin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Provincia</label>
+                        <select id="inputState" class="form-control" name="provincia">
+                            <option value="JUNIN">Satipo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Distrito</label>
+                        <input type="text" class="form-control" name="distrito">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

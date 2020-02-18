@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{# <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet"> #}
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- bootstap -->
+
+	<title>James</title>
+
+	<link rel="stylesheet" href="/css/app.css">
+</head>
+
+<body class="bg-light">
+
+	{% block search %}
+	<header class="bg-white shadow-sm">
+		<div class="container">
+			<div class="row">
+				<div class="col d-flex align-items-center">
+					<a href="/home" class="btn btn-link">HOME</a>
+				</div>
+				<div class="col">
+					<form action="/search" method="post">
+						<div class="row py-3">
+							<div class="col-11">
+								<input type="text" name="search" class="form-control form-control-sm"
+									placeholder="Busca al productor por dni">
+							</div>
+							<div class="col-1 d-flex justify-content-end">
+								<button class="btn btn-primary btn-sm">Buscar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</header>
+	{% endblock %}
+
+	<main>
+		{% block content %}
+		<!-- aqui el contenido -->
+		{% endblock %}
+	</main>
+
+	<footer class="my-5">
+		<p class="text-center">
+			<span>admin</span>
+			-
+			<a href="/logout">Cerrar Session</a>
+		</p>
+	</footer>
+
+
+	<!-- Modal info -->
+	<!-- Modal -->
+	<div class="modal fade" id="modalinfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Alert</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger">
+						Esta funcion aun no esta disponible.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/all.js"></script>
+	<script src="/js/jquery.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/app.js"></script><!-- ajax nuestro script -->
+
+</body>
+
+</html>

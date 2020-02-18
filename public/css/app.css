@@ -1,0 +1,37 @@
+:root {
+  --azul1: rgb(5, 54, 127);
+  --azul2: rgb(7, 71, 166);
+  --azul3: #0052CC;
+  --azul4: #e3e7f1;
+  --white: #fff;
+  --texto: #fff;
+
+  --gris-texto: rgb(66, 82, 110);
+  --gris-texto2: #5E6C84;
+  --gris: rgb(244, 245, 247);
+  --gris2: rgb(235, 236, 240);
+  
+  --font-family-roboto: 'Roboto', sans-serif;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.center-login{
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.liz{
+  position: absolute;
+
+  top: 0;
+  right: 0;
+}

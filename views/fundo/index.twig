@@ -1,0 +1,899 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<input type="hidden" value="fundo" id="db_tabla">
+<input type="hidden" name="fundo" value="{{fundo.fundo_id}}" id="fundo_id">{# fundo #}
+<input type="hidden" value="fundo">
+
+<div class="container">
+    <h4 class="text-center my-5">
+        PRODUCTOR,<br>
+        <b>{{productor.nom_ape}}</b>
+    </h4>
+</div>
+
+<nav>
+    <div class="container">
+        <a class="btn btn-link" href="/productores/{{productor.productor_id}}">
+            Perfil
+        </a>
+        {% if fundo %}
+        <a class="btn btn-link" href="/fundo/{{fundo.fundo_id}}">
+            <b>Fundo</b>
+        </a>
+        {% else %}
+        <button class="btn btn-link" data-toggle="modal" data-target="#agregarFundo">Fundo</button>
+        {% endif %}
+
+        <a class="btn btn-link" href="/productor/{{productor.productor_id}}/inspecciones">Inspecciones</a>
+    </div>
+</nav>
+
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <form action="/fundo/{{fundo.fundo_id}}/update" method="POST">
+            <div class="title d-flex justify-content-between border-bottom">
+                <h5>DATOS DEL FUNDO</h5>
+                <button type="submit" class="btn btn-link">
+                    <i class="far fa-edit"></i>
+                </button>
+            </div>
+            <div class="body mt-3">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">NOMBRE</label>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" name="nombre" class="form-control form-control-sm bg-light"
+                            value="{{fundo.nombre}}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">UBICACION</label>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" name="ubicacion" class="form-control form-control-sm bg-light"
+                            value="{{fundo.ubicacion}}">
+                        <span>
+                            <i>Direccion del fundo</i>
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex align-items-center">
+                            <input type="text" name="distancia" class="form-control form-control-sm bg-light"
+                                value="{{fundo.distancia}}">
+                            <span class="ml-1">KM</span>
+                        </div>
+                        <span>
+                            <i>Distancia desde satipo</i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">CARACTERISTICAS ECOLOGICAS DE LA UNIDAD DE PRODUCCION</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="altitud" class="form-control form-control-sm bg-light"
+                            value="{{fundo.altitud}}">
+                        <span>
+                            <i>Altitud promedio de la finca</i>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="precipitacion" class="form-control form-control-sm bg-light"
+                            value="{{fundo.precipitacion}}">
+                        <span>
+                            <i>Precipitacion</i>
+                        </span>
+                    </div>
+                    <div class="col-3"></div>
+                    <!--espacio-->
+                    <div class="col-4">
+                        <div class="d-flex align-items-center">
+                            <input type="text" name="temperatura" class="form-control form-control-sm bg-light"
+                                value="{{fundo.temperatura}}">
+                            <span class="ml-1">Celcio</span>
+                        </div>
+                        <span>
+                            <i>Temperatura</i>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="expocicion" class="form-control form-control-sm bg-light"
+                            value="¿{{fundo.expocicion}}?">
+                        <span>
+                            <i>Expocision hacia</i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">COORDENADAS UTM</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="este" class="form-control form-control-sm bg-light"
+                            value="{{fundo.este}}">
+                        <span>
+                            <i>Este</i>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="norte" class="form-control form-control-sm bg-light"
+                            value="{{fundo.norte}}">
+                        <span>
+                            <i>Norte</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- produccion -->
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>UNIDAD DE PRODUCCION</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">AREAS</label>
+                </div>
+                <div class="col">
+                    {% for item in items %}
+                    {% if item.clave == 'produccion' %}
+                    <form action="/items/{{item.item_id}}/update" method="POST">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="text" name="valor_1" class="form-control form-control-sm bg-light"
+                                    value="{{item.valor_1}}">
+                                <input type="hidden" name="clave" value="{{item.clave}}">
+                                <!-- clave -->
+                                <span>
+                                    <i>Produccion</i>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="valor_2" class="form-control form-control-sm bg-light"
+                                    value="{{item.valor_2}}">
+                                <span>
+                                    <i>Superficie Anterior (Has)</i>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="valor_3" class="form-control form-control-sm bg-light"
+                                    value="{{item.valor_3}}">
+                                <span>
+                                    <i>Superficie Actual (Has)</i>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="valor_4" class="form-control form-control-sm bg-light"
+                                    value="{{item.valor_4}}">
+                                <span>
+                                    <i>N° de Pardelas</i>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-link">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <a href="/items/{{item.item_id}}/delete" class="btn btn-link">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row d-flex justify-content-center my-2">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#agregarProduccion">
+                            Agregar nueva produccion
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-4">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        Aqui deveria de estar la distribucion de parcela. No se preocupe que pronto aparecera.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<!-- Manejo Pecuario -->
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>MANEJO PECUARIO</h5>
+        </div>
+        <div class="body mt-3">
+            {% for item in items %}
+            {% if item.clave == 'manejo pecuario' %}
+            <div class="row mt-3">
+                <div class="col-3">
+                    <input type="text" class="form-control bg-light" value="{{item.valor_1}}">
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control bg-light" value="{{item.valor_2}}">
+                </div>
+                <div class="col-2">
+                    <select name="" id="" class="form-control bg-light">
+                        <option {% if item.valor_3 == 'cab.' %} selected {% endif %} value="">Cab.</option>
+                        <option {% if item.valor_3 == 'unid.' %} selected {% endif %} value="">Unid.</option>
+                        <option {% if item.valor_3 == 'colmenas' %} selected {% endif %} value="">Colmenas.</option>
+                        <option {% if item.valor_3 == 'pozas' %} selected {% endif %} value="">Pozas.</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-link" data-toggle="modal" data-target="#modalinfo">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <a href="#" class="btn btn-link" data-toggle="modal" data-target="#modalinfo">
+                        <i class="fas fa-trash text-danger"></i>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <p class="text-center">
+                <button type="button" class="btn btn-link mt-3 text-success" data-toggle="modal"
+                    data-target="#agregarManejoPecuario">
+                    Agregar manejo pecuario
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>MANEJO DE RESIDUOS</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row mt-3">
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Pozas de residuos Organicos' %}
+                    <input type="checkbox" value="Pozas de residuos Organicos" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Pozas de residuos Organicos" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Posas de residuos Organicos</label>
+                </div>
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Posas de residuos Inorganicos' %}
+                    <input type="checkbox" value="Posas de residuos Inorganicos" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Posas de residuos Inorganicos" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Posas de residuos Inorganicos</label>
+                </div>
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Compostera' %}
+                    <input type="checkbox" value="Compostera" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Compostera" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Posas de residuos Compostera</label>
+                </div>
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Tratamiento de Aguas miel' %}
+                    <input type="checkbox" value="Tratamiento de Aguas miel" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Tratamiento de Aguas miel" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Tratamiento de Aguas miel</label>
+                </div>
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Tratamiento de Aguas Grises' %}
+                    <input type="checkbox" value="Tratamiento de Aguas Grises" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Tratamiento de Aguas Grises" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Tratamiento de Aguas grises</label>
+                </div>
+                <div class="col-4">
+                    {% for item in items if item.valor_1 == 'Silo' %}
+                    <input type="checkbox" value="Silo" name="manejo_pecuario"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Silo" name="manejo_pecuario" id="">
+                    {% endfor %}
+                    <label for="">Silo</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>ALMACENAMIENTO</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row mt-3">
+                <div class="col-12">
+                    {% for item in items if item.valor_1 == 'Almacen Exclusivo para el Cafe' %}
+                    <input type="checkbox" value="Almacen Exclusivo para el Cafe" name="almacenamiento"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Almacen Exclusivo para el Cafe" name="almacenamiento" id="">
+                    {% endfor %}
+                    <label for="">Almacenamiento exclusivo par el Cafe</label>
+                </div>
+                <div class="col-12">
+                    {% for item in items if item.valor_1 == 'Almacen para Insumos' %}
+                    <input type="checkbox" value="Almacen para Insumos" name="almacenamiento"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Almacen para Insumos" name="almacenamiento" id="">
+                    {% endfor %}
+                    <label for="">Almacen para insumos</label>
+                </div>
+                <div class="col-12">
+                    {% for item in items if item.valor_1 == 'Almacen para herramienta, equipos, y otro productos' %}
+                    <input type="checkbox" value="Almacen para herramienta, equipos, y otro productos" name="almacenamiento"
+                        id="{{item.item_id}}" checked>
+                    {% else %}
+                    <input type="checkbox" value="Almacen para herramienta, equipos, y otro productos" name="almacenamiento" id="">
+                    {% endfor %}
+                    <label for="">Almacen para herramientas, equipos y otros productos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>MANEJO DEL CAFETAL</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">SEMILLA Y PLANTULAS</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="checkbox">
+                            <label for="">Semillas de Produccion propia</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>Proveedor o Lugar</i>
+                            </span>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>Cantidad</i>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-link" data-toggle="modal" data-target="#modalinfo">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#modalinfo">
+                                <i class="fas fa-trash text-danger"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-center mt-3">
+                        <a href="#" class="btn btn-link text-success" data-toggle="modal" data-target="#modalinfo">Agregar (proveedor o lugar)</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">MANIPULACION GENETICA</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">SISTEMAS DE PRODUCCION DEL VIVERO</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <span>
+                                <i>Enbolsado</i>
+                            </span>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <span>
+                                <i>Raiz desnuda</i>
+                            </span>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>Insumos y cantidades utilizados en el sustrato</i>
+                            </span>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>Insumos y cantidades usados en el manejo del vivero</i>
+                            </span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>N° de plantones producidos</i>
+                            </span>
+                        </div>
+                        <div class="col-3">
+                            <input type="date" class="form-control form-control-sm bg-light" value="2017-12-15">
+                            <span>
+                                <i>fecha</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>COSECHA Y POST COCECHA</h5>
+        </div>
+        <div class="body mt-3">
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">COCECHA</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="checkbox">
+                            <label for="">Se realiza manual</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="checkbox">
+                            <label for="">Recoleccion en canasta</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">BENEFICIOS HUMEDOS</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="">Reservorio de agua</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Cemento</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Fibra</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Madera</label>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Planta de beneficio</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Individual</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Centralizado</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Beneficio colectivo</label>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Lavador</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Manual</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">A Motor</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Hidrahulico</label>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Tipo</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Cilindrico</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">Disco</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox">
+                            <label for="">A Motor</label>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Realiza separacoin de calidades</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="radio">
+                            <label for="">Si</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="radio">
+                            <label for="">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">INFRAESTRUCTURA DE PLANTA DE BENEFICIO</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Cerezo (Sifón)</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="cerezo">
+                            <label for="">Tanque de madera</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="cerezo">
+                            <label for="">Tanque de concreto</label>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Fermentador</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="fermentador">
+                            <label for="">Tanque de madera</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="fermentador">
+                            <label for="">Tanque de concreto</label>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Lavador</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="lavador">
+                            <label for="">Tanque de madera</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="lavador">
+                            <label for="">Tanque de concreto</label>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Agua</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Potable</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Riachuelo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">DESTINO DE LAS AGUAS MIEL (POZA DE AGUA MIEL)</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="radio" name="destino_agus_miel">
+                            <label for="">Adecuado</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" name="destino_agus_miel">
+                            <label for="">Riesgo de contaminacion</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm bg-light">
+                            <span>
+                                <i>Observaciones</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">SECADO (INFRAESTRUCTURA DEL PRODUCTOR)</label>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Patio de cemento</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Parihuela</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Tarimas</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Modulo de secado Solar</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox">
+                            <label for="">Secadora Guardiola</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Sacos</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="secado_saco">
+                            <label for="">Yute</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="secado_saco">
+                            <label for="">Polipropileno</label>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Etiquetado</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="secado_etiquetado">
+                            <label for="">Si</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="secado_etiquetado">
+                            <label for="">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <label for="">OTRAS ACTIVIDADES Y/O NEGOCIO</label>
+                </div>
+                <div class="col">
+                    <p class="text-center">
+                        <a href="#" class="btn btn-link text-success" data-toggle="modal" data-target="#modalinfo">Anadir actividad</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title border-bottom">
+            <h5>OTRAS ACTIVIDADES Y/O NEGOCIO</h5>
+        </div>
+        <div class="body mt-3">
+            <form action="">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="">ESPECIFIQUE</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm bg-light">
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalinfo">
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container py-4 bg-white mt-3 shadow">
+    <div class="">
+        <div class="title d-flex justify-content-between border-bottom">
+            <h5>COCECHA Y VENTA</h5>
+            <a href="#" data-toggle="modal" data-target="#modalinfo">
+                <i class="far fa-edit"></i>
+            </a>
+        </div>
+        <div class="body mt-3">
+            <form action="">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <div class="col-3">
+                            <label for="">PRODUCCION Y VENTA (2020)</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad todal producida Saco 70 Kg</i>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad vendida total de cafe QQ</i>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad vendida organica 1era QQ</i>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad vendida organico 2da QQ</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <div class="col-3">
+                            <label for="">ESTIMACION DE PRODUCCION (2021)</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Total estimado produccion perg. qq de 70 Kg</i>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad estimada Organico qq</i>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control form-control-sm bg-light">
+                                <span>
+                                    <i>Cantidad estimada Cafe Especial</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <hr>
+</div>
+<div class="container d-flex justify-content-center">
+    <a href="/fundo/{{fundo.fundo_id}}/verpdf" class="btn btn-link my-3">Verlo en PDF</a>
+</div>
+
+
+<!-- Modal agregar nueva area -->
+<!-- Modal -->
+<div class="modal fade" id="agregarProduccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Produccion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/items/produccion/new" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Producion</label>
+                        <input type="text" class="form-control" name="produccion">
+                        <input type="hidden" name="fundo" value="{{fundo.fundo_id}}">
+                        <!-- hidden -->
+                    </div>
+                    <div class="form-group">
+                        <label for="">Superficie Anterior (Has)</label>
+                        <input type="text" class="form-control" name="superficie_anterior">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Superficie Actual (Has)</label>
+                        <input type="text" class="form-control" name="superficie_actual">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Numero de Parcelas</label>
+                        <input type="text" class="form-control" name="num_parcela">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal agregar manejo pecuario -->
+<!-- Modal -->
+<div class="modal fade" id="agregarManejoPecuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Manejo Pecuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/items/manejopecuario/new" method="POST">
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        Este formulario se rediseñara.
+                    </div>
+                    <div class="form-group">
+                        <label for="">item</label>
+                        <select name="item" id="" class="form-control">
+                            <option value="ninguno">Ningun elemento seleccionado...</option>
+                            <option value="Bobinos">Bobinos</option>
+                            <option value="Aves">Aves</option>
+                            <option value="Cuyes">Cuyes</option>
+                            <option value="Pato">Pato</option>
+                            <option value="Peces">Peces</option>
+                        </select>
+                        <input type="hidden" name="fundo" value="{{fundo.fundo_id}}">
+                        <!-- hidden fundo id -->
+                    </div>
+                    <div class="form-group">
+                        <label for="">Cantidad</label>
+                        <input type="text" class="form-control" name="cantidad">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Medicion</label>
+                        <select name="unidad" id="" class="form-control">
+                            <option value="ninguno">Ninguno...</option>
+                            <option value="cab.">Cab.</option>
+                            <option value="unid.">Unid</option>
+                            <option value="colmenas">Colmenas</option>
+                            <option value="pozas">Peces</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

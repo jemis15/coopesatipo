@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>PDF inspeccion</title>
+
+    <link rel="stylesheet" href="./css/pdf.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+
+        <h4 class="text-center">CENTRAL DE PRODUCTORES AGROECOLOGICOS "SINCHIRI" PANGOA</h4>
+        <h5 class="text-center">FICHA DE INFORMACION BASICA DEL PRODUCTOR</h5>
+
+        <h6>1. DATOS GENERALES</h6>
+        <div>
+            <div>
+                Productor
+            </div>
+            <div>
+                <b>{{productor.nom_ape}}</b>
+            </div>
+            <div>
+                DNI
+            </div>
+            <div>
+                <b>{{productor.dni}}</b>
+            </div>
+            <div>
+                Ubicacion
+            </div>
+            <div>
+                <b>{{productor.departamento}} - {{productor.provincia}} - {{productor.distrito}}</b>
+            </div>
+            <div>
+                Fundo
+            </div>
+            <div>
+                <b>{{fundo.nombre}}</b>
+            </div>
+            <div>
+                Codigo certificado
+            </div>
+            <div>
+                <b>{{inspeccion.codigo}}</b>
+            </div>
+            <div>
+                Estatus
+            </div>
+            <div>
+                <b>{{inspeccion.estatus}}</b>
+            </div>
+            <div>
+                Tipo de inspeccion
+            </div>
+            <div>
+                <b>{{inspeccion.tipo}}</b>
+            </div>
+            <div>
+                fecha
+            </div>
+            <div>
+                <b>{{inspeccion.fecha}}</b>
+            </div>
+        </div>
+
+
+        <h6>2. NORMAS Y CRITERIOS A CUMPLIR</h6>
+        <div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_1' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Reglamento Europeo (CEE) 834/2007 y 889/2008 EU Regulations (EC) NO 834/07 AND 889/08.
+                    (EU)</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_2' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Reglamento tecnico Peruano DS # 044/2006 AG</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_3' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">USDA, AMS 7 CFR Parte 205, National Organic Program, USDA, AMS 7 CFR 205,
+                    (NOP)</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_4' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Estandar Japones de Agricultura (JAS)</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_5' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Criterio de Comercio Justo FLO CERT</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_6' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Rain Forest Aliance</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_7' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Reglamento Interno (SIC)</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_8' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">C.A.F.E. Practices</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_9' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">Codigo comun de conducta par ala comuidad cafetalera (4C)</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_10' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">IMO CERT</label>
+            </div>
+            <div class="col-12">
+                {% for valor in valores if valor.valor_1 == 'norma_11' %}
+                <span class="border"> X </span>
+                {% else %}
+                <input type="checkbox">
+                {% endfor %}
+                <label for="">UTZ</label>
+            </div>
+        </div>
+    </div>
+
+    <h6>3. DATOS DE LA PARCELA</h6>
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="7">SUPERFICIE (ha.)</th>
+                <th colspan="2">COSECHA 2019</th>
+                <th colspan="2">ESTIMADO 2020</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Area total del fundo (Ha.)</td>
+                <td>Area total del cafe (Ha.)</td>
+                <td>Cafe en produccion (Ha.)</td>
+                <td>Cafe en crecimiento (Ha.)</td>
+                <td>Otros cultivos (Ha.)</td>
+                <td>Bosque (Ha.)</td>
+                <td>Zona de riesgo d Erosion (Ha.)</td>
+                <td>Total Produccion (Saco/70Kg)</td>
+                <td>Entrego a la central SINCHIRI (Saco/70Kg)</td>
+                <td>Total Produccion (Saco/70Kg)</td>
+                <td>Entrego a la central SINCHIRI (Saco/70Kg)</td>
+            </tr>
+            <tr>
+                <td>
+                    {% for valor in valores if valor.clave == 'a_t_fundo' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'a_t_cafe' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'cafe_en_produccion' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'cafe_en_crecimiento' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'otros_cultivos' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'bosque' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'z_de_riesgo_de_erosion' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'total_producion' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'entrego_a_la_central_sinchiri' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'total_produccion_before' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for valor in valores if valor.clave == 'entrego_a_la_central_sinchiri_before' %}
+                    <span>{{valor.valor_1}}</span>
+                    {% else %}
+                    <span class="text-white">vacio</span>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% for encuesta in encuestas %}
+    <h6>{{encuesta.numero}}. {{encuesta.titulo}}</h6>
+    
+    {% for item in encuesta.items %}
+    {% for valor in valores if valor.clave == item.numero %}
+    <p>
+        {{item.numero}} {{item.accion}} <br>
+        <i>
+            - No aplica: {{valor.valor_1}} <br>
+            - Cumplimineto: {{valor.valor_2}} <br>
+            - Observacion: {{valor.valor_3}}
+        </i>
+    </p>
+    {% else %}
+    <p>
+        {{item.numero}} {{item.accion}} <br>
+        <i>
+            - Bacio
+        </i>
+    </p>
+    {% endfor %}
+    {% endfor %}
+
+    {% endfor %}
+</body>
+
+</html>

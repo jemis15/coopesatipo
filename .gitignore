@@ -1,0 +1,8 @@
+.idea/
+._.DS_Store
+.DS_Store
+vendor/
+borrador/
+._composer.phar
+composer.phar
+public/uploads
