@@ -128,6 +128,7 @@ class   PdfController extends BaseController {
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();
+        die();
     }
 
     public function getPdfFundo(ServerRequest $request)
@@ -145,5 +146,6 @@ class   PdfController extends BaseController {
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();
+        die();
     }
 }
