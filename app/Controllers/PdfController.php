@@ -134,13 +134,7 @@ class   PdfController extends BaseController {
     public function getPdfFundo(ServerRequest $request)
     {
 
-        $html = $this->getHTML('/pdf/fundo.twig',[
-
-        ]);
-
-        $mpdf = new Mpdf();
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        echo "ola";
         die();
     }
 }
