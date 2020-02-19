@@ -146,4 +146,9 @@ class   PdfController extends BaseController {
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+
+    public function getJames(ServerRequest $request)
+    {
+        return $this->renderHTML('/pdf/inspjames.twig');
+    }
 }

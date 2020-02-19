@@ -171,6 +171,10 @@ $map->post('create.user', '/users/token/10711181372', [
     'App\Controllers\UsersController',
     'postSaveUser'
 ]);
+$map->get('james', '/james', [
+    'App\Controllers\PdfController',
+    'getJames'
+]);
 
 
 $matcher = $routerContainer->getMatcher();
